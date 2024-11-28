@@ -1,0 +1,39 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Tareas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openAddTaskModal()">Añadir Tarea</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="selectedCategoryId" (ionChange)="filterTasks()">
+      <ion-segment-button value="">
+        <ion-label>Todos</ion-label>
+      </ion-segment-button>
+      <ion-segment-button *ngFor="let category of categories" [value]="category.id">
+        <ion-label>{{ category.name }}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let task of filteredTasks">
+      <ion-label>
+        <h2>{{ task.title }}</h2>
+        <p>{{ getCategoryName(task.categoryId) }}</p>
+      </ion-label>
+      <ion-checkbox
+        slot="start"
+        [checked]="task.completed"
+        (ionChange)="toggleTaskCompletion(task.id)"
+      ></ion-checkbox>
+      <ion-button color="danger" slot="end" (click)="deleteTask(task.id)">
+        Eliminar
+      </ion-button>
+    </ion-item>
+       
+  </ion-list>
+</ion-content>

@@ -1,0 +1,16 @@
+
+/* Estilos específicos para la página de tareas */
+ion-item {
+  --background: #f9f9f9;
+  margin-bottom: 8px;
+}
+
+ion-checkbox {
+  --border-color: green;
+  --background-checked: green;
+  --border-color-checked: green;
+}
+
+ion-button[color="danger"] {
+  background: rgb(199, 50, 50);
+}
