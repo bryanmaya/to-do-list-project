@@ -4,3 +4,11 @@ ion-item {
   --background: #f2f2f2;
   margin-bottom: 8px;
 }
+
+ion-button[color="primary"] {
+  background: rgb(31, 142, 253);
+}
+
+ion-button[color="danger"] {
+  background: rgb(199, 50, 50);
+}

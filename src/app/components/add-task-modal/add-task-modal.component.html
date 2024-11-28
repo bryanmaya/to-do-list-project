@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>Nueva Tarea</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="close()">Cancelar</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+      <!-- Campo para el título de la tarea -->
+      <ion-item>
+        <ion-label position="stacked">Título de la tarea</ion-label>
+        <ion-input [(ngModel)]="title" placeholder="Escribe el título"></ion-input>
+      </ion-item>
+  
+      <!-- Checkboxes para las categorías -->
+      <ion-item>
+        <ion-label>Categorías</ion-label>
+      </ion-item>
+  
+      <ion-item *ngFor="let category of categories">
+        <ion-checkbox slot="start" [(ngModel)]="category.selected"></ion-checkbox>
+        <ion-label>{{ category.name }}</ion-label>
+      </ion-item>
+    </ion-list>
+  
+    <!-- Botón de guardar -->
+    <ion-footer>
+      <ion-button expand="block" (click)="save()">Guardar</ion-button>
+    </ion-footer>
+</ion-content>
+  

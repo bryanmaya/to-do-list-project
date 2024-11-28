@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { TaskService } from '../../services/task.service';
 import { CategoryService } from '../../services/category.service';
 import { Task } from '../../models/task.model';
 import { Category } from '../../models/category.model';
+import { AddTaskModalComponent } from '../../components/add-task-modal/add-task-modal.component';
 
 @Component({
   selector: 'app-tasks',
@@ -17,6 +18,7 @@ export class TasksPage {
   selectedCategoryId: string = '';
 
   constructor(
+    private modalCtrl: ModalController,
     private taskService: TaskService,
     private categoryService: CategoryService,
     private alertCtrl: AlertController
@@ -29,8 +31,8 @@ export class TasksPage {
     this.categories = await this.categoryService.getCategories();
   }
 
-  loadTasks() {
-    this.tasks = this.taskService.getTasks();
+  async loadTasks() {
+    this.tasks = await this.taskService.getTasks();
     this.filterTasks();
   }
 
@@ -45,48 +47,36 @@ export class TasksPage {
   }
 
   async openAddTaskModal() {
-    const categoryInputs = this.categories.map((category) => ({
-      name: 'category',
-      type: 'radio' as const,
-      label: category.name,
-      value: category.id,
-    }));
-
-    const alert = await this.alertCtrl.create({
-      header: 'Nueva Tarea',
-      inputs: [
-        {
-          name: 'title',
-          type: 'text',
-          placeholder: 'Título de la tarea',
-        },
-        ...categoryInputs,
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-        },
-        {
-          text: 'Guardar',
-          handler: (data) => {
-            if (data.title) {
-              this.taskService.addTask(data.title, data.category || undefined);
-              this.loadTasks();
-            }
-          },
-        },
-      ],
+    const modal = await this.modalCtrl.create({
+      component: AddTaskModalComponent,
+      componentProps: {
+        // Agregar la propiedad 'selected' dinámicamente al pasar las categorías
+        categories: this.categories.map((cat) => ({ ...cat, selected: false })),
+      },
     });
-
-    await alert.present();
+  
+    modal.onDidDismiss().then((result) => {
+      if (result.data) {
+        const { title, selectedCategories } = result.data;
+        console.log(selectedCategories)
+        selectedCategories.forEach(element => {
+          if (element) {
+            this.taskService.addTask(title, element.id|| undefined);
+            this.loadTasks();
+          }
+        });
+      }
+    });
+  
+    await modal.present();
   }
-
+  
   toggleTaskCompletion(taskId: string) {
     const task = this.tasks.find((t) => t.id === taskId);
     if (task) {
       task.completed = !task.completed;
-      this.taskService.saveTasks(); // Guarda los cambios en el almacenamiento
+      console.log(task.completed)
+      this.taskService.toggleTaskCompletion(task); // Guarda los cambios en el almacenamiento
       // Actualiza solo la lista filtrada
       this.filteredTasks = this.filteredTasks.map((t) =>
         t.id === taskId ? { ...t, completed: task.completed } : t
@@ -97,7 +87,7 @@ export class TasksPage {
   deleteTask(taskId: string) {
     this.tasks = this.tasks.filter((t) => t.id !== taskId);
     this.filteredTasks = this.filteredTasks.filter((t) => t.id !== taskId); // Actualiza la lista filtrada
-    this.taskService.saveTasks();
+    this.taskService.deleteTask(taskId);
   }
 
   getCategoryName(categoryId?: string): string {
