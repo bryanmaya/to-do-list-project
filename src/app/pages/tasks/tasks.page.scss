@@ -5,6 +5,15 @@ ion-item {
   margin-bottom: 8px;
 }
 
+ion-content.scroll-content {
+  display: block;
+  overflow-y: auto; /* Asegura que el contenido se pueda desplazar */
+}
+
+ion-list {
+  max-height: 100%; /* Evita que la lista se desborde */
+}
+
 ion-checkbox {
   --border-color: green;
   --background-checked: green;
