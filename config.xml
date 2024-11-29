@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.list.myapp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>MyApp</name>
+    <description>Una aplicación de to do complete</description>
+    <author email="" href="">Brayam Castrillon</author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-navigation href="*" />
+    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="Orientation" value="portrait" />
+    <preference name="Fullscreen" value="true" />
+    <platform name="android">
+        <preference name="AndroidLaunchMode" value="singleTask" />
+    </platform>
+    <platform name="ios">
+        <preference name="DisallowOverscroll" value="true" />
+        <icon height="40" src="resources/ios/icon/icon-40.png" width="40" />
+        <icon height="60" src="resources/ios/icon/icon-60.png" width="60" />
+        <icon height="76" src="resources/ios/icon/icon-76.png" width="76" />
+        <icon height="83.5" src="resources/ios/icon/icon-83.5.png" width="83.5" />
+    </platform>
+</widget>
