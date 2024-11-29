@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { TaskService } from '../../services/task.service';
 import { CategoryService } from '../../services/category.service';
@@ -21,7 +21,8 @@ export class TasksPage {
     private modalCtrl: ModalController,
     private taskService: TaskService,
     private categoryService: CategoryService,
-    private alertCtrl: AlertController
+    private elementRef: ElementRef,
+    private renderer: Renderer2
   ) {
     this.loadCategories();
     this.loadTasks();
@@ -93,5 +94,29 @@ export class TasksPage {
   getCategoryName(categoryId?: string): string {
     const category = this.categories.find((c) => c.id === categoryId);
     return category ? category.name : 'Sin Categoría';
+  }
+
+  ionViewWillEnter() {
+    this.loadCategories(); 
+    const contentHeader = this.elementRef.nativeElement.querySelector('ion-header');
+    if (contentHeader) {
+      this.renderer.setStyle(contentHeader, 'display', 'block');
+    } 
+    const content = this.elementRef.nativeElement.querySelector('ion-content');
+    if (content) {
+      this.renderer.setStyle(content, 'display', 'block');
+    } 
+
+  }
+
+  ionViewWillLeave() {
+    const contentHeader = this.elementRef.nativeElement.querySelector('ion-header');
+    if (contentHeader) {
+      this.renderer.setStyle(contentHeader, 'display', 'none');
+    } 
+    const content = this.elementRef.nativeElement.querySelector('ion-content');
+    if (content) {
+      this.renderer.setStyle(content, 'display', 'none');
+    } 
   }
 }

@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, ElementRef, Renderer2} from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../models/category.model';
@@ -12,7 +12,7 @@ import { Category } from '../../models/category.model';
 export class CategoriesPage {
   categories: Category[] = [];
 
-  constructor(private categoryService: CategoryService, private alertCtrl: AlertController) {
+  constructor(private categoryService: CategoryService, private alertCtrl: AlertController,private elementRef: ElementRef,private renderer: Renderer2) {
     this.loadCategories();
   }
 
@@ -82,5 +82,27 @@ export class CategoriesPage {
   deleteCategory(categoryId: string) {
     this.categoryService.deleteCategory(categoryId);
     this.loadCategories();
+  }
+
+  ionViewWillEnter() {
+    const contentHeader = this.elementRef.nativeElement.querySelector('ion-header');
+    if (contentHeader) {
+      this.renderer.setStyle(contentHeader, 'display', 'block');
+    } 
+    const content = this.elementRef.nativeElement.querySelector('ion-content');
+    if (content) {
+      this.renderer.setStyle(content, 'display', 'block');
+    } 
+  }
+
+  ionViewWillLeave() {
+    const contentHeader = this.elementRef.nativeElement.querySelector('ion-header');
+    if (contentHeader) {
+      this.renderer.setStyle(contentHeader, 'display', 'none');
+    } 
+    const content = this.elementRef.nativeElement.querySelector('ion-content');
+    if (content) {
+      this.renderer.setStyle(content, 'display', 'none');
+    } 
   }
 }

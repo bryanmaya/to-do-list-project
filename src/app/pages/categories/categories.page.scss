@@ -12,3 +12,10 @@ ion-button[color="primary"] {
 ion-button[color="danger"] {
   background: rgb(199, 50, 50);
 }
+
+.hidden-page {
+  opacity: 0; /* Oculta visualmente */
+  pointer-events: none; /* Desactiva la interacción */
+  transition: opacity 0.3s ease; /* Transición suave */
+  display: none;
+}

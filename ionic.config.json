@@ -1,8 +1,9 @@
-
 {
   "name": "todo-list",
   "integrations": {
     "cordova": {}
   },
-  "type": "angular"
+  "type": "angular",
+  "proxies": [],
+  "defaultProject": "app"
 }

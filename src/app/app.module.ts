@@ -8,10 +8,11 @@ import { AddTaskModalComponent } from './components/add-task-modal/add-task-moda
 
 // Importaciones necesarias
 import { IonicStorageModule } from '@ionic/storage-angular'; // Para Ionic Storage
-import { HttpClientModule } from '@angular/common/http'; // Para servicios HTTP
+import { HttpClientModule } from '@angular/common/http';
+import { TabsComponent } from './components/tabs/tabs.component'; // Para servicios HTTP
 
 @NgModule({
-  declarations: [AppComponent,AddTaskModalComponent],
+  declarations: [AppComponent,AddTaskModalComponent, TabsComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
