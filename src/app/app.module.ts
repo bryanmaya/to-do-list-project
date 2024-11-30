@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddTaskModalComponent } from './components/add-task-modal/add-task-modal.component';
+import { FirebaseX } from '@awesome-cordova-plugins/firebase-x/ngx';
 
 // Importaciones necesarias
 import { IonicStorageModule } from '@ionic/storage-angular'; // Para Ionic Storage
@@ -21,7 +22,7 @@ import { TabsComponent } from './components/tabs/tabs.component'; // Para servic
     HttpClientModule,
     FormsModule,
   ],
-  providers: [], // Añade tus servicios personalizados aquí si no usan 'providedIn: root'
+  providers: [FirebaseX], // Añade tus servicios personalizados aquí si no usan 'providedIn: root'
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

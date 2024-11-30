@@ -11,6 +11,7 @@
     <preference name="Fullscreen" value="true" />
     <platform name="android">
         <preference name="AndroidLaunchMode" value="singleTask" />
+        <resource-file src="src/app/google-services.json" target="app/google-services.json" />
     </platform>
     <platform name="ios">
         <preference name="DisallowOverscroll" value="true" />
