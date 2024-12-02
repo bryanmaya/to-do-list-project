@@ -23,7 +23,9 @@ export class TasksPage {
     private categoryService: CategoryService,
     private elementRef: ElementRef,
     private renderer: Renderer2
-  ) {
+  ) {}
+
+  ngOnInit(){
     this.loadCategories();
     this.loadTasks();
   }

@@ -21,7 +21,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'tasks',
+        redirectTo: 'categories',
         pathMatch: 'full',
       },
     ],
